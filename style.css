@@ -1,0 +1,22 @@
+.first,
+.second {
+    background: linear-gradient( 45deg , #93ada3, #a995ad);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.userInput {
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
+.chartWrapper {
+    width: 20vw;
+    height: 20vh;
+    position: absolute;
+    top: 30vh;
+    left: 10vw;
+}
