@@ -1,5 +1,7 @@
+
 .first,
-.second {
+.second,
+.third {
     background: linear-gradient( 45deg , #93ada3, #a995ad);
     width: 100vw;
     height: 100vh;
@@ -8,15 +10,42 @@
     justify-content: center;
     align-items: center;
 }
+ul,
+li {
+    list-style: none;
+}
 
 .userInput {
     margin-bottom: 10px;
     border-radius: 2px;
 }
 .chartWrapper {
-    width: 20vw;
-    height: 20vh;
     position: absolute;
+    width: 20vw;
     top: 30vh;
     left: 10vw;
+}
+
+h3 {
+    position: absolute;
+    top: 10vh;
+}
+
+.contents {
+    display: flex;
+    justify-content: space-between;
+    width: 50vw;
+}
+
+.record {
+    width: 10vw;
+    height: 4vh;
+    margin-bottom: 2vh;
+    background-color: #f8facf;
+    padding-left: 10%;
+    line-height: 4vh;
+}
+
+button {
+    float: right;
 }

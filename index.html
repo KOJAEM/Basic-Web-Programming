@@ -12,35 +12,62 @@
     <script src="main.js" defer></script>
     <!-- 부트 스트랩 -->
     <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
-    crossorigin="anonymous"
-  />
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+      crossorigin="anonymous"
+    />
     <title>Document</title>
   </head>
   <body>
     <div class="first">
+      <h3>로그인 화면</h3>
       <form>
         <div>
-          <input id="gender" type="text" class="userInput" placeholder="성별(남/여)" required />
+          <input
+            id="gender"
+            type="text"
+            class="userInput"
+            placeholder="성별(남/여)"
+            required
+          />
         </div>
         <div>
-          <input id="height" type="number" class="userInput" placeholder="키(cm)" required />
+          <input
+            id="height"
+            type="number"
+            class="userInput"
+            placeholder="키(cm)"
+            required
+          />
         </div>
         <div>
-          <input id="weight" type="number" class="userInput" placeholder="체중(kg)" required />
+          <input
+            id="weight"
+            type="number"
+            class="userInput"
+            placeholder="체중(kg)"
+            required
+          />
         </div>
         <div>
-          <input id="age" type="number" class="userInput" placeholder="나이" required />
+          <input
+            id="age"
+            type="number"
+            class="userInput"
+            placeholder="나이"
+            required
+          />
         </div>
+        <button
+          id="okBtn"
+          style="
+          border-radius: 10px;
+          background-color: #a0ebc4"
+        >
+          확인
+        </button>
       </form>
-      <button 
-      id="okBtn"
-      style="
-      margin-left: 10px;
-      border-radius: 10px;"
-      >확인</button>
     </div>
   </body>
 </html>
