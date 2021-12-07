@@ -1,11 +1,10 @@
-
 .first,
 .second,
 .third {
+    display: none;
     background: linear-gradient( 45deg , #93ada3, #a995ad);
     width: 100vw;
     height: 100vh;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -20,8 +19,8 @@ li {
     border-radius: 2px;
 }
 .chartWrapper {
-    position: absolute;
     display: flex;
+    position: absolute;
     flex-direction: column;
     align-items: center;
     width: 20vw;
@@ -47,8 +46,4 @@ h3 {
     background-color: #f8facf;
     padding-left: 10%;
     line-height: 4vh;
-}
-
-button {
-    float: right;
 }
