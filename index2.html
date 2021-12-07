@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <script src="main2.js" defer></script>
 
     <!-- 부트 스트랩 -->
@@ -22,10 +24,11 @@
       <h3>사용자님의 현재 상태</h3>
       <div class="chartWrapper">
         <canvas id="myChart"></canvas>
+        <div style="margin-top: 2vh;">한국 평균 비만율</div>
       </div>
       <div>
-        <p class="informBmi">사용자님의 BMI 수치는 OOO입니다.</p>
-        <p class="informState">BMI 수치 결과에 따라 당신은 OOOO입니다.</p>
+        <p id="informBmi"></p>
+        <p id="informState"></p>
       </div>
 
       <div class="progress" style="width: 20vw; margin-top: 5vh">
@@ -45,6 +48,7 @@
           style="
           border-radius: 10px;
           background-color: #98d6ed"
+          id="nextBtn"
         >
           확인
         </button>

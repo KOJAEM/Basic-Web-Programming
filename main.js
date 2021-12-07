@@ -20,3 +20,4 @@ okButton.addEventListener("click", (e) => {
     console.log("사용자님의 BMI 수치는",user.bmi);
 });
 
+
