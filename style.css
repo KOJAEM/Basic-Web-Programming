@@ -1,3 +1,8 @@
+body {
+    background: linear-gradient( 45deg , #93ada3, #a995ad);
+    overflow: hidden;
+}
+
 .first,
 .second,
 .third {
@@ -8,6 +13,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: opacity 1000ms ease-in-out;
 }
 ul,
 li {

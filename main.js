@@ -8,6 +8,17 @@ let bmiResult;
 let progressWidth;
 // 스토리지에 user 값이 있으면 second 의 display:none 을 삭제해야함. (나중에 수정)
 
+const movePage = (now, next) => {
+  $(`.${now}`).css("opacity", 0);
+  setTimeout(() => {
+    $(`.${now}`).css("display", "none");
+    $(`.${next}`).css("display", "flex");
+  },1200);
+  setTimeout(() => {
+    $(`.${next}`).css("opacity", "1");
+  },1500);
+}
+
 $(document).ready(() => {
   $(".first").css("display", "flex"); // 제이쿼리 사용
 });
@@ -23,15 +34,17 @@ okButton.addEventListener("click", (e) => {
   user.height = Number(height.value);
   user.weight = Number(weight.value);
   user.age = Number(age.value);
-  user.bmi = Number(
-    Math.round((user.weight / (user.height / 100) ** 2) * 100) / 100
-  );
+  user.bmi = Number(Math.round((user.weight / (user.height / 100) ** 2) * 100) / 100);
+
+  alert("현재 상태는 이후에 얼마든지 수정 가능합니다\n성공적인 다이어트를 기원합니다.")
+
+
 
   // second 로딩에 필요한것들
   updateSecondPage();
 
-  $(".first").css("display", "none");
-  $(".second").css("display", "flex");
+  movePage("first", "second");
+  
 });
 
 // second
@@ -40,14 +53,33 @@ const progress = document.querySelector("#progress");
 const nextBtn = document.querySelector("#nextBtn");
 const informBmi = document.querySelector("#informBmi");
 const informState = document.querySelector("#informState");
-
 const updateSecondPage = () => {
-  if (user.bmi < 18.5) bmiResult = "저체중";
-  else if (user.bmi < 23) bmiResult = "정상";
-  else if (user.bmi < 25) bmiResult = "과체중";
-  else if (user.bmi < 30) bmiResult = "경도비만";
-  else if (user.bmi < 35) bmiResult = "중등도비만";
-  else bmiResult = "고도비만";
+  // 체중에 따라 그래프 색깔 바뀌게
+  if (user.bmi < 18.5) {
+    bmiResult = "저체중";
+    progress.style.backgroundColor = "#a19c91";
+  }
+  else if (user.bmi < 23) {
+    bmiResult = "정상";
+    progress.style.backgroundColor = "#5e96ff";
+  }
+  else if (user.bmi < 25) {
+    bmiResult = "과체중";
+    progress.style.backgroundColor = "#5e96ff";
+  }
+  else if (user.bmi < 30) {
+    bmiResult = "경도비만";
+    progress.style.backgroundColor = "#e3f57f";
+  }
+  else if (user.bmi < 35) {
+    bmiResult = "중등도비만";
+    progress.style.backgroundColor = "#7bed8a";
+  }
+  else {
+    bmiResult = "고도비만";
+    progress.style.backgroundColor = "#f22c22";
+  }
+
   informBmi.innerHTML = `사용자님의 BMI 수치는 ${user.bmi}입니다.`;
   informState.innerHTML = `BMI 수치 결과에 따라 당신은 ${bmiResult}입니다.`;
   // 100% 를 40으로 치고 계산
@@ -56,8 +88,7 @@ const updateSecondPage = () => {
 }
 
 nextBtn.addEventListener("click", () => {
-  $(".second").css("display", "none");
-  $(".third").css("display", "flex");
+  movePage("second", "third");
 });
 
 var ctx = document.getElementById("myChart").getContext("2d");
@@ -69,18 +100,18 @@ var myChart = new Chart(ctx, {
       {
         data: [3, 58, 32, 6, 1],
         backgroundColor: [
-          "rgba(255, 99, 132, 0.8)",
-          "rgba(54, 162, 235, 0.8)",
-          "rgba(255, 206, 86, 0.8)",
-          "rgba(75, 192, 192, 0.8)",
-          "rgba(153, 102, 255, 0.8)",
+          "#a19c91",
+          "#5e96ff",
+          "#e3f57f",
+          "#7bed8a",
+          "#f22c22",
         ],
         borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
+          "#a19c91",
+          "#5e96ff",
+          "#e3f57f",
+          "#7bed8a",
+          "#f22c22",
         ],
         borderWidth: 1,
       },
@@ -102,7 +133,7 @@ const moveSecond = document.querySelector("#moveSecond");
 
 changeBmi.addEventListener("click", () => {
   const changingHeight = prompt("본인의 키를 입력해주세요.");
-  const changingWeight = prompt("변경된 몸무게를 입력해주세요.");
+  const changingWeight = prompt("변경된 체중을 입력해주세요.");
   const changingAge = prompt("변경된 나이를 입력해주세요.");
 
   // 입력되지 않은것이 있을때
@@ -111,9 +142,9 @@ changeBmi.addEventListener("click", () => {
     return;
   }
 
-  result = confirm(`
+  const result = confirm(`
   변경된 키 : ${changingHeight}\n
-  변경된 몸무게 : ${changingWeight}\n
+  변경된 체중 : ${changingWeight}\n
   변경된 나이 : ${changingAge} 가 맞습니까?`);
 
   if (result) {
@@ -132,6 +163,5 @@ changeBmi.addEventListener("click", () => {
 });
 
 moveSecond.addEventListener("click", () => {
-  $(".third").css("display", "none");
-  $(".second").css("display", "flex");
+  movePage("third", "second");
 })
