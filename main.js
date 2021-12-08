@@ -2,11 +2,23 @@ const gender = document.querySelector("#gender");
 const height = document.querySelector("#height");
 const weight = document.querySelector("#weight");
 const age = document.querySelector("#age");
-const user = {};
-const okButton = document.querySelector("#okBtn");
+const okButton = document.querySelector("#okButton");
+const firstProgress = document.querySelector("#firstProgress");
 let bmiResult;
 let progressWidth;
 // 스토리지에 user 값이 있으면 second 의 display:none 을 삭제해야함. (나중에 수정)
+
+$(document).ready(() => {
+  if(!localStorage.getItem("firstState")) // 처음 접속하여 firstState값이 없을때
+  {
+    $(".first").css("display", "flex");
+    return;
+  }
+  $(".second").css("display", "flex"); // 로그인을 하여 로컬스토리지에 값이 있을때
+  $(".second").css("opacity", 1);
+  updatePage();
+  firstProgress.style.width = `${localStorage.getItem("firstBmiProgress")}%`;
+});
 
 const movePage = (now, next) => {
   $(`.${now}`).css("opacity", 0);
@@ -19,10 +31,8 @@ const movePage = (now, next) => {
   },1500);
 }
 
-$(document).ready(() => {
-  $(".first").css("display", "flex"); // 제이쿼리 사용
-});
 
+// first
 okButton.addEventListener("click", (e) => {
   e.preventDefault();
   // input 창에 입력되지 않은 것이 있을때
@@ -30,18 +40,22 @@ okButton.addEventListener("click", (e) => {
     alert("모든 정보를 입력해주세요.");
     return;
   }
-  user.gender = gender.value;
-  user.height = Number(height.value);
-  user.weight = Number(weight.value);
-  user.age = Number(age.value);
-  user.bmi = Number(Math.round((user.weight / (user.height / 100) ** 2) * 100) / 100);
+  // 로컬스토리지에 값을 넣음
+  localStorage.setItem("gender", gender.value);
+  localStorage.setItem("height", Number(height.value));
+  localStorage.setItem("weight", Number(weight.value));
+  localStorage.setItem("age", Number(age.value))
+  localStorage.setItem("bmi", Number(Math.round((Number(localStorage.getItem("weight")) / (Number(localStorage.getItem("height")) / 100) ** 2) * 100) / 100)); // bmi 계산
+  localStorage.setItem("firstState", localStorage.getItem("bmi"));
+  localStorage.setItem("firstBmiProgress", (localStorage.getItem("firstState")*100)/40)
+  firstProgress.style.width = `${localStorage.getItem("firstBmiProgress")}%`;
 
+  
   alert("현재 상태는 이후에 얼마든지 수정 가능합니다\n성공적인 다이어트를 기원합니다.")
 
 
-
-  // second 로딩에 필요한것들
-  updateSecondPage();
+  // 페이지 업데이트
+  updatePage();
 
   movePage("first", "second");
   
@@ -49,42 +63,58 @@ okButton.addEventListener("click", (e) => {
 
 // second
 
-const progress = document.querySelector("#progress");
+const nowProgress = document.querySelectorAll("#nowProgress");
 const nextBtn = document.querySelector("#nextBtn");
 const informBmi = document.querySelector("#informBmi");
 const informState = document.querySelector("#informState");
-const updateSecondPage = () => {
-  // 체중에 따라 그래프 색깔 바뀌게
-  if (user.bmi < 18.5) {
+
+const updatePage = () => {
+  // 현재 체중에 따라 그래프 색깔 바뀜 (firstState 그래프는 마젠타 색으로 고정해놨음.)
+  if (localStorage.getItem("bmi") < 18.5) {
     bmiResult = "저체중";
-    progress.style.backgroundColor = "#a19c91";
+    nowProgress.forEach((now) => {
+      now.style.backgroundColor="#a19c91";
+    })
   }
-  else if (user.bmi < 23) {
+  else if (localStorage.getItem("bmi") < 23) {
     bmiResult = "정상";
-    progress.style.backgroundColor = "#5e96ff";
+    nowProgress.forEach((now) => {
+      now.style.backgroundColor="#5e96ff";
+    })
   }
-  else if (user.bmi < 25) {
+  else if (localStorage.getItem("bmi") < 25) {
     bmiResult = "과체중";
-    progress.style.backgroundColor = "#5e96ff";
+    nowProgress.forEach((now) => {
+      now.style.backgroundColor="#5e96ff";
+    })
   }
-  else if (user.bmi < 30) {
+  else if (localStorage.getItem("bmi") < 30) {
     bmiResult = "경도비만";
-    progress.style.backgroundColor = "#e3f57f";
+    nowProgress.forEach((now) => {
+      now.style.backgroundColor="#e3f57f";
+    })
   }
-  else if (user.bmi < 35) {
+  else if (localStorage.getItem("bmi") < 35) {
     bmiResult = "중등도비만";
-    progress.style.backgroundColor = "#7bed8a";
+    nowProgress.forEach((now) => {
+      now.style.backgroundColor="#7bed8a";
+    })
   }
   else {
     bmiResult = "고도비만";
-    progress.style.backgroundColor = "#f22c22";
+    nowProgress.forEach((now) => {
+      now.style.backgroundColor="#f22c22";
+    })
   }
 
-  informBmi.innerHTML = `사용자님의 BMI 수치는 ${user.bmi}입니다.`;
+  informBmi.innerHTML = `사용자님의 BMI 수치는 ${localStorage.getItem("bmi")}입니다.`;
   informState.innerHTML = `BMI 수치 결과에 따라 당신은 ${bmiResult}입니다.`;
-  // 100% 를 40으로 치고 계산
-  let progressWidth = (user.bmi*100)/40
-  progress.style.width = `${progressWidth}%`;
+  // 100% 를 bmi 수치 40으로 치고 계산
+  let progressWidth = (localStorage.getItem("bmi")*100)/40
+  nowProgress.forEach((now) => {
+    now.style.width= `${progressWidth}%`;
+  })
+
 }
 
 nextBtn.addEventListener("click", () => {
@@ -148,13 +178,11 @@ changeBmi.addEventListener("click", () => {
   변경된 나이 : ${changingAge} 가 맞습니까?`);
 
   if (result) {
-    user.height = changingHeight;
-    user.weight = changingWeight;
-    user.age = changingAge;
-    user.bmi = Number(
-      Math.round((user.weight / (user.height / 100) ** 2) * 100) / 100
-    );
-    updateSecondPage();
+    localStorage.setItem("height", changingHeight);
+    localStorage.setItem("weight", changingWeight);
+    localStorage.setItem("age", changingAge);
+    localStorage.setItem("bmi", Number(Math.round((Number(localStorage.getItem("weight")) / (Number(localStorage.getItem("height")) / 100) ** 2) * 100) / 100));
+    updatePage();
     alert("변경되었습니다.");
   }
   else {
