@@ -64,7 +64,7 @@ okButton.addEventListener("click", (e) => {
 // second
 
 const nowProgress = document.querySelectorAll("#nowProgress");
-const nextBtn = document.querySelector("#nextBtn");
+const nextButton = document.querySelector("#nextButton");
 const informBmi = document.querySelector("#informBmi");
 const informState = document.querySelector("#informState");
 
@@ -117,7 +117,7 @@ const updatePage = () => {
 
 }
 
-nextBtn.addEventListener("click", () => {
+nextButton.addEventListener("click", () => {
   movePage("second", "third");
 });
 

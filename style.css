@@ -1,81 +1,91 @@
 body {
-    background: linear-gradient( 45deg , #93ada3, #a995ad);
-    overflow: hidden;
+  background: linear-gradient(45deg, #93ada3, #a995ad);
+  overflow: hidden;
 }
 .first,
 .second,
 .third {
-    display: none;
-    background: linear-gradient( 45deg , #93ada3, #a995ad);
-    width: 100vw;
-    height: 100vh;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 1000ms ease-in-out;
+  display: none;
+  background: linear-gradient(45deg, #93ada3, #a995ad);
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1000ms ease-in-out;
 }
 ul,
 li {
-    list-style: none;
+  list-style: none;
 }
 
 .userInput {
-    margin-bottom: 10px;
-    border-radius: 2px;
+  margin-bottom: 10px;
+  border-radius: 2px;
 }
 .chartWrapper {
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    align-items: center;
-    width: 20vw;
-    top: 30vh;
-    left: 10vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20vw;
+}
+
+.infor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 2vw;
+}
+
+.goThreePage {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2vh;
+  align-items: end;
 }
 
 h3 {
-    position: absolute;
-    top: 10vh;
+  position: absolute;
+  top: 10vh;
 }
 
 .contents {
-    display: flex;
-    justify-content: space-between;
-    width: 50vw;
+  display: flex;
+  justify-content: space-between;
+  width: 50vw;
 }
 .left,
 .right {
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .diaryWrapper {
-    padding: 0;
-    margin: 0;
-    overflow-y: scroll;
+  padding: 0;
+  margin: 0;
+  overflow-y: scroll;
 }
 /* 스크롤 바 설정 */
 .diaryWrapper::-webkit-scrollbar {
-    opacity: 0;
+  opacity: 0;
 }
 /* 스크롤 바 막대 설정 */
 .diaryWrapper::-webkit-scrollbar-thumb {
-    background-color: lightskyblue;
-    border-radius: 100px;
+  background-color: lightskyblue;
+  border-radius: 100px;
 }
 
-
 .diary {
-    width: 20vw;
-    height: 10vh;
-    background-color: #f8facf;
-    padding-left: 10%;
-    line-height: 4vh;
+  width: 20vw;
+  height: 10vh;
+  background-color: #f8facf;
+  padding-left: 10%;
+  line-height: 4vh;
 }
 
 /* 마지막 요소를 제외하고 margin-bottom 을 줌 */
 .diary:not(:last-child) {
-    margin-bottom: 2vh;
+  margin-bottom: 2vh;
 }
