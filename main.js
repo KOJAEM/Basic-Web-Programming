@@ -196,7 +196,15 @@ moveSecond.addEventListener("click", () => {
 
 // 다이어리 쓰기
 const writeDiary = document.querySelector("#writeDiary");
-
+const modalWrapper = document.querySelector(".modalWrapper");
+const writeCancel = document.querySelector("#writeCancel");
+const date = document.querySelector("#date");
+const today = new Date();
 writeDiary.addEventListener('click', () => {
-  console.log('다이어리 버튼클릭');
+  date.innerHTML = `${today.getMonth()+1}월 ${today.getDate()}일`
+  modalWrapper.style.display = "flex";
 })
+
+writeCancel.addEventListener("click", () => {
+  modalWrapper.style.display = "none";
+});

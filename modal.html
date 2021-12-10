@@ -26,19 +26,28 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="diaryModal">
-      <div>
-        <h2 id="date" style="text-align: center; margin-bottom: 1vh">O월O일</h2>
-        <div>
-          <input
-            id="intensity"
-            class="intensity"
-            type="text"
-            placeholder="운동강도 (상/중/하)"
-            maxlength="2"
-            required
-          />
-        </div>
+    <div class="modalWrapper">
+      <div class="modalContent">
+        <h2 id="date" style=
+        "text-align: center; 
+        margin-bottom: 1vh; 
+        background-color: #c4d69a;
+        border-radius: 10px;
+        padding: 0.5vh 1vw 0.5vh 1vw;
+        ">O월O일</h2>
+        <input
+          id="intensity"
+          class="intensity"
+          type="text"
+          style="
+          margin-left: auto;
+          border-radius: 10px;
+          text-align: right;
+          "
+          placeholder="운동강도 (상/중/하)"
+          maxlength="2"
+          required
+        />
         <div>
           <textarea
             class="userTextarea"
@@ -47,28 +56,26 @@
             placeholder="남기고 싶은 말"
           ></textarea>
         </div>
-        <div class="buttons">
-            <div class="writeButton">
-              <button
-                style="
-                  border-radius: 10px;
-                  background-color: #ebca8e;
-                  margin-right: 1vw;
-                "
-                id="writeCancel"
-              >
-              취소
-              </button>
-              <button
-                style="
-                  border-radius: 10px;
-                  background-color: #82e9e4;
-                "
-                id="writeSave"
-              >저장
-            </button>
-            </div>
+        <div class="diaryButton">
+          <button
+            style="
+              border-radius: 10px;
+              background-color: #ebca8e;
+              margin-right: 1vw;
+            "
+            id="writeCancel"
+          >
+            취소
+          </button>
+          <button
+            style="border-radius: 10px; background-color: #82e9e4"
+            id="writeSave"
+          >
+            저장
+          </button>
+        </div>
       </div>
+      <div class="modalLayer"></div>
     </div>
   </body>
 </html>

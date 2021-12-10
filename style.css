@@ -99,13 +99,22 @@ h3 {
 
 .topButton,
 .bottomButton,
-.writeButton {
+.diaryButton {
   display: flex;
   margin-left: auto;
 }
 
-/* 다이어리 */
-.diaryModal {
+/* 다이어리 쓰기 창 */
+
+.modalWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  width:100%;
+  height: 100%;
+}
+.modalContent {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -114,14 +123,14 @@ h3 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 30vw;
-  height: 30vh;
+  z-index: 2;
 }
 
 .userTextarea {
   border-radius: 10px;
   box-shadow: 2px 2px 10px white;
   resize: none;
+  padding: 1vw;
   max-width: 100%;
 }
 .userTextarea::placeholder {
@@ -131,10 +140,26 @@ h3 {
   transform: translate(-50%, -50%);
 }
 
-.intensity {
-  float: right;
-  margin-bottom: 1vh;
-  text-align: right;
+.userTextarea::-webkit-scrollbar {
+  opacity: 0;
+}
+/* 스크롤 바 막대 설정 */
+.userTextarea::-webkit-scrollbar-thumb {
+  background-color: rgb(171, 137, 235);
+  border-radius: 100px;
 }
 
+.intensity {
+  margin-bottom: 1vh;
+}
+
+.modalLayer {
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
 
