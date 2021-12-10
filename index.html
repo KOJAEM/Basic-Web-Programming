@@ -79,12 +79,14 @@
     <div class="second" style="opacity: 0">
       <h3>사용자님의 현재 상태</h3>
       <div class="contents">
-        <div class="chartWrapper">
-          <canvas id="myChart"></canvas>
-          <div style="margin-top: 2vh">한국 평균 비만율</div>
+        <div class="left">
+          <div class="chartWrapper">
+            <canvas id="myChart"></canvas>
+            <div style="margin-top: 2vh">한국 평균 비만율</div>
+          </div>
         </div>
         <div class="right">
-          <div class="infor">
+          <div class="info">
             <p id="informBmi"></p>
             <p id="informState"></p>
           </div>
@@ -102,11 +104,7 @@
           <div class="goThreePage">
             <p>다이어트 기록 보기</p>
             <button
-              style="
-                border-radius: 10px;
-                background-color: #98d6ed;
-                width: 3vw;
-              "
+              style="border-radius: 10px; background-color: #98d6ed"
               id="nextButton"
             >
               확인
@@ -156,27 +154,42 @@
               aria-valuemax="50"
             ></div>
           </div>
-          <div class="buttons" style="float: right">
-            <button
-              style="
-                border-radius: 10px;
-                background-color: #e398d6;
-                margin-top: 5vh;
-              "
-              id="moveSecond"
-            >
-              현재 상태보러가기
-            </button>
-            <button
-              style="
-                border-radius: 10px;
-                background-color: #f2aaaa;
-                margin-top: 5vh;
-              "
-              id="changeBmi"
-            >
-              bmi 수정하기
-            </button>
+          <div class="buttons">
+            <div class="topButton">
+              <button
+                style="
+                  border-radius: 10px;
+                  background-color: #e398d6;
+                  margin-top: 5vh;
+                  margin-right: 1vw;
+                "
+                id="moveSecond"
+              >
+                현재 상태보러가기
+              </button>
+              <button
+                style="
+                  border-radius: 10px;
+                  background-color: #f2aaaa;
+                  margin-top: 5vh;
+                "
+                id="changeBmi"
+              >
+                bmi 수정하기
+              </button>
+            </div>
+            <div class="bottomButton">
+              <button
+                style="
+                  border-radius: 10px;
+                  background-color: #baeeda;
+                  margin-top: 5vh;
+                "
+                id="writeDiary"
+              >
+                다이어리 쓰기
+              </button>
+            </div>
           </div>
         </div>
       </div>

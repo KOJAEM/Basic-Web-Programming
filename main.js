@@ -193,3 +193,10 @@ changeBmi.addEventListener("click", () => {
 moveSecond.addEventListener("click", () => {
   movePage("third", "second");
 })
+
+// 다이어리 쓰기
+const writeDiary = document.querySelector("#writeDiary");
+
+writeDiary.addEventListener('click', () => {
+  console.log('다이어리 버튼클릭');
+})
