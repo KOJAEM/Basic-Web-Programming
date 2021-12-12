@@ -14,7 +14,7 @@ $(document).ready(() => {
   }
   $(".second").css("display", "flex"); // 로그인을 하여 로컬스토리지에 값이 있을때
   $(".second").css("opacity", 1);
-  updatePage();
+  updateStatePage();
   firstProgress.style.width = `${localStorage.getItem("firstBmiProgress")}%`;
 });
 
@@ -64,7 +64,7 @@ document.querySelector("#okButton").addEventListener("click", e => {
   );
 
   // 페이지 업데이트
-  updatePage();
+  updateStatePage();
 
   movePage("first", "second");
 });
@@ -73,7 +73,7 @@ document.querySelector("#okButton").addEventListener("click", e => {
 
 const nowProgress = document.querySelectorAll("#nowProgress");
 
-const updatePage = () => {
+const updateStatePage = () => {
   // 현재 체중에 따라 그래프 색깔 바뀜 (firstState 그래프는 마젠타 색으로 고정해놨음.)
   if (localStorage.getItem("bmi") < 18.5) {
     bmiResult = "저체중";
@@ -105,6 +105,7 @@ const updatePage = () => {
     nowProgress.forEach(now => {
       now.style.backgroundColor = "#f22c22";
     });
+
   }
 
   document.querySelector(
@@ -185,7 +186,7 @@ document.querySelector("#changeBmi").addEventListener("click", () => {
         ) / 100
       )
     );
-    updatePage();
+    updateStatePage();
     alert("변경되었습니다.");
   } else {
     alert("수정이 취소되었습니다.");
@@ -196,9 +197,19 @@ document.querySelector("#moveSecond").addEventListener("click", () => {
   movePage("third", "second");
 });
 
+const updateDiary = () => {
+  const diary = JSON.parse(localStorage.getItem("diary"));
+  if (!diary) return;
+
+  diary.forEach((diaryContents) => {
+    console.log(diaryContents);
+  })
+}
+
 // 다이어리 쓰기
 const modalWrapper = document.querySelector(".modalWrapper");
 const today = new Date();
+const date = document.querySelector("#date");
 document.querySelector("#writeDiary").addEventListener("click", () => {
   document.querySelector("#date").innerHTML = `${
     today.getMonth() + 1
@@ -210,10 +221,48 @@ document.querySelector("#writeDiary").addEventListener("click", () => {
   }, 100);
 });
 
+const intensity = document.querySelector("#intensity");
+const diaryContents = document.querySelector("#diaryContents");
 document.querySelector("#writeCancel").addEventListener("click", () => {
-  modalWrapper.style.width = "0%";
-  modalWrapper.style.opacity = 0;
-  setTimeout(() => {
-    modalWrapper.style.display = "none";
-  }, 1000);
+  modalCancel();
 });
+
+document.querySelector("#writeSave").addEventListener("click", () => {
+  if (!intensity.value || !diaryContents.value) {
+    alert("모든 정보를 입력해주세요.");
+    return;
+  }
+
+  const todayDiary = {
+    day: date.innerHTML,
+    intensity: intensity.value,
+    contents: diaryContents.value,
+  };
+    const diary = localStorage.getItem("diary");
+    // 다이어리를 처음 만들때만 실행
+    if (!diary) {
+      const diaryArray = [];
+      diaryArray.push(todayDiary);
+      localStorage.setItem("diary", JSON.stringify(diaryArray));
+      return;
+    }
+  const diaryArray = JSON.parse(diary);
+  diaryArray.push(todayDiary);
+  localStorage.setItem("diary", JSON.stringify(diaryArray));
+  alert("저장 되었습니다.");
+  modalCancel();
+});
+
+// updateDiary();
+
+
+const modalCancel = () => {
+    modalWrapper.style.width = "0%";
+    modalWrapper.style.opacity = 0;
+    intensity.value = "";
+    diaryContents.value = "";
+
+    setTimeout(() => {
+      modalWrapper.style.display = "none";
+    }, 1000);
+}
