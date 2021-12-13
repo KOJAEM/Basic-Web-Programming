@@ -105,7 +105,6 @@ const updateStatePage = () => {
     nowProgress.forEach(now => {
       now.style.backgroundColor = "#f22c22";
     });
-
   }
 
   document.querySelector(
@@ -123,6 +122,7 @@ const updateStatePage = () => {
 
 document.querySelector("#nextButton").addEventListener("click", () => {
   movePage("second", "third");
+  updateDiary();
 });
 
 var ctx = document.getElementById("myChart").getContext("2d");
@@ -199,12 +199,33 @@ document.querySelector("#moveSecond").addEventListener("click", () => {
 
 const updateDiary = () => {
   const diary = JSON.parse(localStorage.getItem("diary"));
+  const diaryWrapper = document.querySelector(".diaryWrapper");
   if (!diary) return;
+  diaryWrapper.innerHTML = "";
+  diary.forEach(thatDayDiary => {
+    diaryWrapper.innerHTML += `
+    <li class="diary"
+    data-day=${JSON.stringify(thatDayDiary.day)}
+    data-intensity=${JSON.stringify(thatDayDiary.intensity)}
+    data-contents=${JSON.stringify(thatDayDiary.contents)}
+    onclick="diaryClick(this)"
+    >${thatDayDiary.day}<br />운동난이도 : ${thatDayDiary.intensity}</li>`;
+  });
+};
+// 다이어리 클릭
+const diaryClick = diary => {
+  document.querySelector("#date").innerHTML = diary.dataset.day;
+  document.querySelector("#intensity").value = diary.dataset.intensity;
+  document.querySelector("#diaryContents").value = diary.dataset.contents;
+  document.querySelector("#writeCancel").innerHTML = "닫기";
+  document.querySelector("#writeSave").style.display = "none";
 
-  diary.forEach((diaryContents) => {
-    console.log(diaryContents);
-  })
-}
+  modalWrapper.style.display = "flex";
+  setTimeout(() => {
+    modalWrapper.style.width = "100%";
+    modalWrapper.style.opacity = 1;
+  }, 100);
+};
 
 // 다이어리 쓰기
 const modalWrapper = document.querySelector(".modalWrapper");
@@ -219,6 +240,8 @@ document.querySelector("#writeDiary").addEventListener("click", () => {
     modalWrapper.style.width = "100%";
     modalWrapper.style.opacity = 1;
   }, 100);
+  document.querySelector("#writeCancel").innerHTML = "취소";
+  document.querySelector("#writeSave").style.display = "block";
 });
 
 const intensity = document.querySelector("#intensity");
@@ -238,31 +261,32 @@ document.querySelector("#writeSave").addEventListener("click", () => {
     intensity: intensity.value,
     contents: diaryContents.value,
   };
-    const diary = localStorage.getItem("diary");
-    // 다이어리를 처음 만들때만 실행
-    if (!diary) {
-      const diaryArray = [];
-      diaryArray.push(todayDiary);
-      localStorage.setItem("diary", JSON.stringify(diaryArray));
-      return;
-    }
+  const diary = localStorage.getItem("diary");
+  // 다이어리를 처음 만들때만 실행
+  if (!diary) {
+    const diaryArray = [];
+    diarySave(diaryArray, todayDiary);
+    return;
+  }
   const diaryArray = JSON.parse(diary);
+  diarySave(diaryArray, todayDiary);
+});
+
+const modalCancel = () => {
+  modalWrapper.style.width = "0%";
+  modalWrapper.style.opacity = 0;
+  intensity.value = "";
+  diaryContents.value = "";
+
+  setTimeout(() => {
+    modalWrapper.style.display = "none";
+  }, 1000);
+};
+
+const diarySave = (diaryArray, todayDiary) => {
   diaryArray.push(todayDiary);
   localStorage.setItem("diary", JSON.stringify(diaryArray));
   alert("저장 되었습니다.");
+  updateDiary();
   modalCancel();
-});
-
-// updateDiary();
-
-
-const modalCancel = () => {
-    modalWrapper.style.width = "0%";
-    modalWrapper.style.opacity = 0;
-    intensity.value = "";
-    diaryContents.value = "";
-
-    setTimeout(() => {
-      modalWrapper.style.display = "none";
-    }, 1000);
-}
+};
