@@ -87,8 +87,8 @@
         </div>
         <div class="right">
           <div class="info">
-            <p id="informBmi"></p>
-            <p id="informState"></p>
+            <p id="informBmi">사용자님의 BMI 수치는 OOO입니다.</p>
+            <p id="informState">BMI 수치 결과에 따라 당신은 OOO입니다.</p>
           </div>
           <div class="progress" style="width: 20vw; margin-top: 2vh">
             <div
@@ -191,6 +191,7 @@
             </div>
           </div>
         </div>
+        <!-- 다이어리 쓰기 시 나오는 모달 -->
         <div class="modalWrapper">
       <div class="modalContent">
         <h2 id="date" style=
@@ -204,11 +205,6 @@
           id="intensity"
           class="intensity"
           type="text"
-          style="
-          margin-left: auto;
-          border-radius: 10px;
-          text-align: right;
-          "
           placeholder="운동강도 (상/중/하)"
           maxlength="2"
           required
@@ -245,6 +241,39 @@
       </div>
       <div class="modalLayer"></div>
     </div>
+    <!-- 다이어리 클릭 시 나오는 모달 -->
+        <div class="clickModalWrapper">
+      <div class="clickModalContent">
+        <h2 id="thatDate" style=
+        "text-align: center; 
+        margin-bottom: 1vh; 
+        background-color: #c4d69a;
+        border-radius: 10px;
+        padding: 0.5vh 1vw 0.5vh 1vw;
+        ">O월O일</h2>
+        <div
+          id="thatDayIntensity"
+          class="thatDayIntensity"
+        >운동강도 : OO</div>
+        <div>
+          <div
+            class="thatDayContents"
+          >남겼었던 말</div>
+        </div>
+        <div class="diaryButton">
+          <button
+            style="
+              border-radius: 10px;
+              background-color: #ebca8e;
+              margin-top: 0.5vh;
+            "
+            id="clickCancel"
+          >
+            닫기
+          </button>
+        </div>
+      </div>
+      <div class="modalLayer"></div>
       </div>
     </div>
   </body>

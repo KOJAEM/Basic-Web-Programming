@@ -28,50 +28,32 @@
   <body>
     <div class="modalWrapper">
       <div class="modalContent">
-        <h2 id="date" style=
+        <h2 id="thatDate" style=
         "text-align: center; 
         margin-bottom: 1vh; 
         background-color: #c4d69a;
         border-radius: 10px;
         padding: 0.5vh 1vw 0.5vh 1vw;
         ">O월O일</h2>
-        <input
-          id="intensity"
-          class="intensity"
-          type="text"
-          style="
-          margin-left: auto;
-          border-radius: 10px;
-          text-align: right;
-          "
-          placeholder="운동강도 (상/중/하)"
-          maxlength="2"
-          required
-        />
+        <div
+          id="thatDayIntensity"
+          class="thatDayIntensity"
+        >운동강도 : OO</div>
         <div>
-          <textarea
-            class="userTextarea"
-            rows="10"
-            cols="40"
-            placeholder="남기고 싶은 말"
-          ></textarea>
+          <div
+            class="thatDayContents"
+          >남겼었던 말</div>
         </div>
         <div class="diaryButton">
           <button
             style="
               border-radius: 10px;
               background-color: #ebca8e;
-              margin-right: 1vw;
+              margin-top: 0.5vh;
             "
             id="writeCancel"
           >
-            취소
-          </button>
-          <button
-            style="border-radius: 10px; background-color: #82e9e4"
-            id="writeSave"
-          >
-            저장
+            닫기
           </button>
         </div>
       </div>

@@ -106,7 +106,8 @@ h3 {
 
 /* 다이어리 쓰기 창 */
 
-.modalWrapper {
+.modalWrapper,
+.clickModalWrapper {
   position: absolute;
   display: none;
   opacity: 0;
@@ -116,7 +117,8 @@ h3 {
   width: 0;
   height: 100%;
 }
-.modalContent {
+.modalContent,
+.clickModalContent {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -153,15 +155,36 @@ h3 {
 
 .intensity {
   margin-bottom: 1vh;
+  margin-left: auto;
+  border-radius: 10px;
+  text-align: right;
 }
 
 .modalLayer {
   position: fixed;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
   z-index: 1;
 }
 
+/* 다이어리 클릭 했을때 */
+.thatDayIntensity {
+  background-color: rgb(231, 223, 223);
+  width: 150px;
+  text-align: right;
+  margin-bottom: 1vh;
+  margin-left: auto;
+  padding: 5px 5px 5px 5px;
+  border-radius: 10px;
+}
+
+.thatDayContents {
+  background-color: rgb(255, 255, 255);
+  width: 400px;
+  height: 300px;
+  padding: 1vw;
+  border-radius: 10px;
+}
