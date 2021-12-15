@@ -42,16 +42,7 @@ document.querySelector("#okButton").addEventListener("click", e => {
   localStorage.setItem("height", Number(height.value));
   localStorage.setItem("weight", Number(weight.value));
   localStorage.setItem("age", Number(age.value));
-  localStorage.setItem(
-    "bmi",
-    Number(
-      Math.round(
-        (Number(localStorage.getItem("weight")) /
-          (Number(localStorage.getItem("height")) / 100) ** 2) *
-          100
-      ) / 100
-    )
-  ); // bmi 계산
+  localStorage.setItem("bmi", bmiCalc(localStorage.getItem("weight"), localStorage.getItem("height")));
   localStorage.setItem("firstState", localStorage.getItem("bmi"));
   localStorage.setItem(
     "firstBmiProgress",
@@ -159,13 +150,21 @@ var myChart = new Chart(ctx, {
 document.querySelector("#changeBmi").addEventListener("click", () => {
   const changingHeight = prompt("본인의 키를 입력해주세요.");
   const changingWeight = prompt("변경된 체중을 입력해주세요.");
-  const changingAge = prompt("변경된 나이를 입력해주세요.");
+  const changingAge = prompt("변경된 나이를 입력해주세요. (숫자로 입력)");
 
   // 입력되지 않은것이 있을때
   if (!changingHeight || !changingWeight || !changingAge) {
     alert("모든 정보를 입력해주세요.");
     return;
   }
+  // bmi 계산
+  const changingBmi = bmiCalc(changingWeight, changingHeight);
+
+  if(Number.isNaN(changingBmi)) {
+    alert("숫자만 입력 가능합니다.")
+    return;
+  }
+
 
   const result = confirm(`
   변경된 키 : ${changingHeight}\n
@@ -176,16 +175,7 @@ document.querySelector("#changeBmi").addEventListener("click", () => {
     localStorage.setItem("height", changingHeight);
     localStorage.setItem("weight", changingWeight);
     localStorage.setItem("age", changingAge);
-    localStorage.setItem(
-      "bmi",
-      Number(
-        Math.round(
-          (Number(localStorage.getItem("weight")) /
-            (Number(localStorage.getItem("height")) / 100) ** 2) *
-            100
-        ) / 100
-      )
-    );
+    localStorage.setItem("bmi", changingBmi);
     updateStatePage();
     alert("변경되었습니다.");
   } else {
@@ -295,3 +285,9 @@ const diaryClick = diary => {
 document.querySelector("#clickCancel").addEventListener("click", () => {
   modalCancel(clickModalWrapper);
 });
+
+const bmiCalc = (weight, height) => {
+  return Number(
+    Math.round((Number(weight) / (Number(height) / 100) ** 2) * 100) / 100
+  );
+}
