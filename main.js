@@ -4,12 +4,13 @@ const weight = document.querySelector("#weight");
 const age = document.querySelector("#age");
 const firstProgress = document.querySelector("#firstProgress");
 let bmiResult;
-// 스토리지에 user 값이 있으면 second 의 display:none 을 삭제해야함. (나중에 수정)
+let removeId;
 
 $(document).ready(() => {
   if (!localStorage.getItem("firstState")) {
     // 처음 접속하여 firstState값이 없을때
     $(".first").css("display", "flex");
+    localStorage.setItem("id", Number(1)); // 다이어리 아이디값
     return;
   }
   $(".second").css("display", "flex"); // 로그인을 하여 로컬스토리지에 값이 있을때
@@ -198,6 +199,7 @@ const updateDiary = () => {
     data-day=${JSON.stringify(thatDayDiary.day)}
     data-intensity=${JSON.stringify(thatDayDiary.intensity)}
     data-contents=${JSON.stringify(thatDayDiary.contents)}
+    data-id=${JSON.stringify(thatDayDiary.id)}
     onclick="diaryClick(this)"
     >${thatDayDiary.day}<br />운동난이도 : ${thatDayDiary.intensity}</li>`;
   });
@@ -229,12 +231,15 @@ document.querySelector("#writeSave").addEventListener("click", () => {
     alert("모든 정보를 입력해주세요.");
     return;
   }
-
+  const id = Number(localStorage.getItem("id"));
   const todayDiary = {
+    id,
     day: date.innerHTML,
     intensity: intensity.value,
     contents: diaryContents.value,
   };
+  localStorage.setItem("id", id+1); // 로컬스토리지 id값을 +1 시킴.
+
   todayDiary.contents = todayDiary.contents.replace(/\n/gi, "<br>");
   const diary = localStorage.getItem("diary");
   // 다이어리를 처음 만들때만 실행
@@ -270,9 +275,9 @@ const diarySave = (diaryArray, todayDiary) => {
 const clickModalWrapper = document.querySelector(".clickModalWrapper");
 const clickModalContent = document.querySelector(".clickModalContent");
 const diaryClick = diary => {
+  removeId = Number(diary.dataset.id);
   document.querySelector("#thatDate").innerHTML = diary.dataset.day;
-  document.querySelector("#thatDayIntensity").innerHTML =
-    diary.dataset.intensity;
+  document.querySelector("#thatDayIntensity").innerHTML = diary.dataset.intensity;
   document.querySelector(".thatDayContents").innerHTML = diary.dataset.contents;
 
   clickModalWrapper.style.display = "flex";
@@ -291,3 +296,14 @@ const bmiCalc = (weight, height) => {
     Math.round((Number(weight) / (Number(height) / 100) ** 2) * 100) / 100
   );
 }
+
+document.querySelector("#remove").addEventListener("click", () => {
+  const diaryAll = JSON.parse(localStorage.getItem("diary"));
+  const changingDiary = [];
+  changingDiary.push(diaryAll.filter(diary => diary.id !== removeId))
+  localStorage.setItem("diary", JSON.stringify(changingDiary.flat()))
+  // flat() : 중첩 배열을 벗기는 메소드
+  alert("삭제 되었습니다.")
+  updateDiary();
+  modalCancel(clickModalWrapper);
+})
